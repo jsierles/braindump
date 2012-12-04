@@ -1,0 +1,5 @@
+= braindump
+
+Generate this with
+    braindump rdoc
+After you have described your command line interface

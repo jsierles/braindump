@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+require 'gli'
+require 'rainbow'
+require 'open4'
+
+include GLI::App
+program_desc 'A fun and educational UNIX command wrapper'
+
+version Braindump::VERSION
+
+desc 'Process-related commands'
+
+command :proc do |mc|
+
+  mc.desc "Show details about all running processes"
+  mc.command :all do |c|
+    c.action do |global_options,options,args|
+      cmd_line = "ps auwxx"
+      puts cmd_line.color(:red)
+      puts `#{cmd_line}`
+    end
+  end
+
+  mc.desc "Show open files for a specific process"
+  mc.arg_name "pid", :required
+  mc.command :open_files do |c|
+    c.action do |global_options,options,args|
+      cmd_line = "lsof -p #{args.first}"
+      puts cmd_line.color(:red)
+      puts `#{cmd_line}`
+    end
+  end
+
+end
+
+desc 'Networking-related commands'
+command :net do |c|
+  c.action do |global_options,options,args|
+    puts "net command ran"
+  end
+end
+
+desc 'Memory-related commands'
+command :mem do |c|
+  c.action do |global_options,options,args|
+
+  end
+end
+
+desc 'Disk-related commands'
+command :disk do |c|
+  c.action do |global_options,options,args|
+
+  end
+end
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed; false to abourt and not call the
+  # chosen command
+  # Use skips_pre before a command to skip this block
+  # on that command only
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic here
+  # Use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)

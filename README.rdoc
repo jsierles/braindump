@@ -1,0 +1,6 @@
+= braindump
+
+A practical, fun and educational UNIX command wrapper. Yeah!
+
+:include:braindump.rdoc
+
